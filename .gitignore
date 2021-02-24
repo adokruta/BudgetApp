@@ -1,0 +1,9 @@
+bin/
+obj/
+TimeExercise/
+BudgetApp.cbp
+BudgetApp.layout
+BudgetApp.depend
+BudgetApp.mm
+users.xml
+
