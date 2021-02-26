@@ -31,7 +31,7 @@ public:
     UserManager()
     {
         loggedInUserId = 0;
-        //users = loadUsersFromFile();
+        users = loadUsersFromFile();
     };
 
     void registerUser();

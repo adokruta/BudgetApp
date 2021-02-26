@@ -81,27 +81,26 @@ string AuxiliaryMethods :: pobierzLiczbe(string tekst, int pozycjaZnaku)
     return liczba;
 }
 
-char AuxiliaryMethods ::  wybierzOpcjeZMenuUzytkownika()
+char AuxiliaryMethods ::  selectOptionFromUserMenu()
 {
-    char wybor;
+    char choice;
 
     system("cls");
-    cout << " >>> MENU UZYTKOWNIKA <<<" << endl;
+    cout << " >>> USER MENU <<<" << endl;
     cout << "---------------------------" << endl;
-    cout << "1. Dodaj adresata" << endl;
-    cout << "2. Wyszukaj po imieniu" << endl;
-    cout << "3. Wyszukaj po nazwisku" << endl;
-    cout << "4. Wyswietl adresatow" << endl;
-    cout << "5. Usun adresata" << endl;
-    cout << "6. Edytuj adresata" << endl;
+    cout << "1. Add income" << endl;
+    cout << "2. Add expense" << endl;
+    cout << "3. Balance for the current month" << endl;
+    cout << "4. Balance for the previous month" << endl;
+    cout << "5. Balance for the selected period" << endl;
     cout << "---------------------------" << endl;
-    cout << "7. Zmien haslo" << endl;
-    cout << "8. Wyloguj sie" << endl;
+    cout << "6. Change password" << endl;
+    cout << "7. Log out" << endl;
     cout << "---------------------------" << endl;
-    cout << "Twoj wybor: ";
-    wybor = loadCharacter();
+    cout << "Your choice: ";
+    choice = loadCharacter();
 
-    return wybor;
+    return choice;
 }
 
 int  AuxiliaryMethods ::  wczytajLiczbeCalkowita()

@@ -17,7 +17,7 @@ public:
      string zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst);
      int konwersjaStringNaInt(string liczba);
      string pobierzLiczbe(string tekst, int pozycjaZnaku);
-     static char wybierzOpcjeZMenuUzytkownika();
+     static char selectOptionFromUserMenu();
      static int wczytajLiczbeCalkowita();
      static char wybierzOpcjeZMenuEdycja();
 };

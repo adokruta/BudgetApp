@@ -1,12 +1,8 @@
 #include "UserManager.h"
-#include <conio.h>
+
 
 void UserManager :: registerUser()
 {
-    users = loadUsersFromFile();
-    showUsers();
-    getch();
-
     User user = getNewUserData();
 
     users.push_back(user);
@@ -64,7 +60,7 @@ bool UserManager :: loginExist(string login)
    {
        if(users[i].getLogin() == login)
        {
-           cout << endl << "There is a user with such login." << endl;
+           cout << endl << "There is a user with such login! Try another." << endl;
            return true;
        }
    }

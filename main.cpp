@@ -7,7 +7,7 @@ using namespace std;
 int main()
 {
     BudgetApp budgetApp;
-    UserManager userManager;
+    //UserManager userManager;
 
    while (true)
     {
@@ -29,6 +29,42 @@ int main()
             default:
                 cout << endl << "There is no such option in the MENU." << endl << endl;
                 system("pause");
+                break;
+            }
+        }
+        else
+        {
+             char choice = AuxiliaryMethods :: selectOptionFromUserMenu();
+
+            switch (choice)
+            {
+            case '1':
+                cout << "Add income";
+                //budgetApp.();
+                break;
+            case '2':
+                cout << "Add expense";
+                //budgetApp.();
+                break;
+            case '3':
+                cout << "Show balance";
+               // budgetApp.();
+                break;
+            case '4':
+                cout << "Show balance from previous month";
+               // budgetApp.();
+                break;
+            case '5':
+                cout << "Show balance from selected period";
+               // budgetApp.();
+                break;
+            case '6':
+                cout << "Change password";
+                //budgetApp.();
+                break;
+            case '7':
+                cout << "Log out";
+               // budgetApp.();
                 break;
             }
         }
