@@ -10,6 +10,7 @@
 #include "User.h"
 #include "UserManager.h"
 #include "AuxiliaryMethods.h"
+#include "CashFlowManager.h"
 
 
 using namespace std;
@@ -17,13 +18,24 @@ using namespace std;
 class BudgetApp
 {
     UserManager userManager;
+    CashFlowManager *cashFlowManager;
 
 
 public:
-
+BudgetApp()
+{
+    cashFlowManager = NULL;
+};
+~ BudgetApp()
+{
+    delete cashFlowManager;
+    cashFlowManager = NULL;
+}
 void registerUser();
 void loginUser();
 bool isUserLoggedIn();
+void logoutUser();
+void changePassword();
 
 
 };

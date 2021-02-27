@@ -7,7 +7,6 @@ using namespace std;
 int main()
 {
     BudgetApp budgetApp;
-    //UserManager userManager;
 
    while (true)
     {
@@ -59,12 +58,10 @@ int main()
                // budgetApp.();
                 break;
             case '6':
-                cout << "Change password";
-                //budgetApp.();
+                budgetApp.changePassword();
                 break;
             case '7':
-                cout << "Log out";
-               // budgetApp.();
+                budgetApp.logoutUser();
                 break;
             }
         }

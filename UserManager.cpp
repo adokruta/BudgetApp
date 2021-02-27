@@ -1,4 +1,5 @@
 #include "UserManager.h"
+#include <conio.h>
 
 
 void UserManager :: registerUser()
@@ -75,7 +76,7 @@ bool UserManager :: loginExist(string login)
 
     system("cls");
     cout << "Enter login: ";
-    login = auxiliaryMethods.wczytajLinie();
+    login = auxiliaryMethods.loadLine();
 
    for(int i=0; i < users.size(); i++)
    {
@@ -84,7 +85,7 @@ bool UserManager :: loginExist(string login)
             for (int numberOfAttempts = 3; numberOfAttempts > 0; numberOfAttempts--)
             {
                 cout << "Enter password. Attempts left: " << numberOfAttempts << ": ";
-                password = auxiliaryMethods.wczytajLinie();
+                password = auxiliaryMethods.loadLine();
 
                 if (users[i].getPassword() == password)
                 {
@@ -122,7 +123,7 @@ void UserManager ::  changePassword()
 {
     string newPassword = "";
     cout << "Enter new password: ";
-    newPassword = auxiliaryMethods.wczytajLinie();
+    newPassword = auxiliaryMethods.loadLine();
 
     for (int i=0; i <=users.size(); i++)
     {
@@ -133,6 +134,34 @@ void UserManager ::  changePassword()
             system("pause");
         }
     }
+
+    CMarkup xml;
+    User user;
+
+    bool fileExists = xml.Load( "users.xml" );
+
+    if (!fileExists)
+    {
+        xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+    }
+
+    xml.FindElem();
+    xml.IntoElem();
+    while ( xml.FindElem("User") )
+    {
+        xml.IntoElem();
+        xml.FindElem( "userId" );
+        if(loggedInUserId == atoi( MCD_2PCSZ(xml.GetData())))
+        {
+            xml.FindElem( "password" );
+            xml.SetData(newPassword);
+
+            break;
+        }
+        xml.OutOfElem();
+    }
+    //xml.Save("users.xml");
+
 
 }
 
@@ -176,7 +205,6 @@ bool UserManager ::  isUserLoggedIn()
  vector <User> UserManager :: loadUsersFromFile()
  {
     User user;
-    //vector <User> users;
 
     CMarkup xml;
 

@@ -8,11 +8,11 @@ string AuxiliaryMethods :: konwerjsaIntNaString(int liczba)
     return str;
 }
 
-string AuxiliaryMethods :: wczytajLinie()
+string AuxiliaryMethods :: loadLine()
 {
-    string wejscie = "";
-    getline(cin, wejscie);
-    return wejscie;
+    string enter = "";
+    getline(cin, enter);
+    return enter;
 }
 
 char AuxiliaryMethods :: selectOptionFromMainMenu()

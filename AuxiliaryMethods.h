@@ -11,7 +11,7 @@ class AuxiliaryMethods
 {
 public:
      static string konwerjsaIntNaString(int liczba);
-     string wczytajLinie();
+     string loadLine();
      static char selectOptionFromMainMenu();
      static char loadCharacter();
      string zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst);
