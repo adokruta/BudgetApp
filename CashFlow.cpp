@@ -5,9 +5,20 @@
        if (newUserId >=0)
             userId = newUserId;
     }
-    void CashFlow :: setDate(char newDate[11])
+
+     void CashFlow :: setCashFlowId(int newCashFlowId)
     {
-        date[11] = newDate[11];
+       if (newCashFlowId >=0)
+            cashFlowId = newCashFlowId;
+    }
+
+    void CashFlow :: setDate(char *newDate)
+    {
+
+        for(int i=0; i<=10; i++)
+        {
+            date[i] = newDate[i];
+        }
     }
     void CashFlow :: setItem(string newItem)
     {
@@ -22,9 +33,15 @@
     {
         return userId;
     }
-    char CashFlow :: getDate()
+
+      int CashFlow :: getCashFlowId()
     {
-        return date[11];
+        return cashFlowId;
+    }
+
+    char* CashFlow :: getDate()
+    {
+        return date;
     }
     string CashFlow :: getItem()
     {

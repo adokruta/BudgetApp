@@ -36,6 +36,7 @@ void loginUser();
 bool isUserLoggedIn();
 void logoutUser();
 void changePassword();
+void addCashFlow();
 
 
 };

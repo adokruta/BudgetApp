@@ -31,5 +31,9 @@ void BudgetApp :: changePassword()
     userManager.changePassword();
 }
 
+void BudgetApp :: addCashFlow()
+{
+    cashFlowManager->addCashFlow();
+}
 
 

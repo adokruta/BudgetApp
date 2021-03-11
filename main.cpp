@@ -39,7 +39,7 @@ int main()
             {
             case '1':
                 cout << "Add income";
-                //budgetApp.();
+                budgetApp.addCashFlow();
                 break;
             case '2':
                 cout << "Add expense";

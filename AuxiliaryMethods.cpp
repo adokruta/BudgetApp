@@ -34,21 +34,21 @@ char AuxiliaryMethods :: selectOptionFromMainMenu()
 
 char AuxiliaryMethods :: loadCharacter()
 {
-    string wejscie = "";
-    char znak  = {0};
+    string enter = "";
+    char sign  = {0};
 
     while (true)
     {
-        getline(cin, wejscie);
+        getline(cin, enter);
 
-        if (wejscie.length() == 1)
+        if (enter.length() == 1)
         {
-            znak = wejscie[0];
+            sign = enter[0];
             break;
         }
-        cout << "To nie jest pojedynczy znak. Wpisz ponownie." << endl;
+        cout << "This is no single character. Please try again." << endl;
     }
-    return znak;
+    return sign;
 }
 
 string AuxiliaryMethods :: zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst)
@@ -139,3 +139,15 @@ char AuxiliaryMethods :: wybierzOpcjeZMenuEdycja()
     return wybor;
 }
 
+string AuxiliaryMethods :: changeCommaToPeriod( string wordToChange)
+{
+    for (int i=0; i <= wordToChange.size(); i++)
+    {
+        if (wordToChange[i] == ',')
+        {
+            wordToChange[i] = '.';
+        }
+    }
+
+    return wordToChange;
+}

@@ -11,7 +11,7 @@ class AuxiliaryMethods
 {
 public:
      static string konwerjsaIntNaString(int liczba);
-     string loadLine();
+     static string loadLine();
      static char selectOptionFromMainMenu();
      static char loadCharacter();
      string zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst);
@@ -20,6 +20,7 @@ public:
      static char selectOptionFromUserMenu();
      static int wczytajLiczbeCalkowita();
      static char wybierzOpcjeZMenuEdycja();
+     static string changeCommaToPeriod(string wordToChange);
 };
 
 #endif

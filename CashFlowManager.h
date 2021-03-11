@@ -4,13 +4,14 @@
 #include <iostream>
 #include <vector>
 #include <windows.h>
-#include <fstream>
+#include <conio.h>
 #include <sstream>
 #include <time.h>
 
 #include "Markup.h"
 #include "User.h"
 #include "AuxiliaryMethods.h"
+#include "CashFlow.h"
 
 
 using namespace std;
@@ -18,10 +19,21 @@ using namespace std;
 class CashFlowManager
 {
     const int LOGGED_IN_USER_ID;
+    //vector <CashFlow> cashFlows;
     string fileName;
-    bool isTheDateCorrect();
+    bool isTheDateCorrect(int year, int month, int day);
+    bool isYearLeap (int year);
+    bool isNumberOfDaysInMonthCorrect (int numberOfDays, int month, int year);
+    int lastCashFlowId;
+    char* setTodaysDate();
+    char* setUsersDate();
+    string setItem();
+    string setAmount();
+    void saveCashFlowToFile(CashFlow cashFlow);
 
     AuxiliaryMethods auxiliaryMethods;
+
+    int getLastCashFlowId(string fileName);
 
 
 
@@ -29,9 +41,11 @@ public:
 
     CashFlowManager(int loggedInUserId): LOGGED_IN_USER_ID(loggedInUserId)
     {
-
+      fileName = "CashFlow.xml";
+      lastCashFlowId = getLastCashFlowId(fileName);
     };
 
+    void addCashFlow();
 
 
 };

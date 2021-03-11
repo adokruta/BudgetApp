@@ -155,14 +155,11 @@ void UserManager ::  changePassword()
         {
             xml.FindElem( "password" );
             xml.SetData(newPassword);
-
             break;
         }
         xml.OutOfElem();
     }
-    //xml.Save("users.xml");
-
-
+    xml.Save("users.xml");
 }
 
 bool UserManager ::  isUserLoggedIn()

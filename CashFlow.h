@@ -8,6 +8,7 @@ using namespace std;
 class CashFlow
 {
     int userId;
+    int cashFlowId;
     char date[11];
     string item;
     string amount;
@@ -15,12 +16,14 @@ class CashFlow
 
 public:
     void setuserId(int newUserId);
-    void setDate(char newDate[11]);
+    void setCashFlowId(int newCashFlowId);
+    void setDate(char *newDate);
     void setItem(string newItem);
     void setAmount(string newAmount);
 
     int getuserId();
-    char getDate();
+    int getCashFlowId();
+    char* getDate();
     string getItem();
     string getAmount();
 
