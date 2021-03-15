@@ -18,22 +18,24 @@ using namespace std;
 
 class CashFlowManager
 {
-    const int LOGGED_IN_USER_ID;
-    //vector <CashFlow> cashFlows;
-    string fileName;
+    //string fileName;
     bool isTheDateCorrect(int year, int month, int day);
     bool isYearLeap (int year);
     bool isNumberOfDaysInMonthCorrect (int numberOfDays, int month, int year);
-    int lastCashFlowId;
+   // int lastCashFlowId;
+
+    protected:
+
+    const int LOGGED_IN_USER_ID;
     char* setTodaysDate();
     char* setUsersDate();
     string setItem();
     string setAmount();
-    void saveCashFlowToFile(CashFlow cashFlow);
+   // void saveCashFlowToFile(CashFlow cashFlow);
 
     AuxiliaryMethods auxiliaryMethods;
 
-    int getLastCashFlowId(string fileName);
+   // int getLastCashFlowId(string fileName);
 
 
 
@@ -41,11 +43,11 @@ public:
 
     CashFlowManager(int loggedInUserId): LOGGED_IN_USER_ID(loggedInUserId)
     {
-      fileName = "CashFlow.xml";
-      lastCashFlowId = getLastCashFlowId(fileName);
+      //fileName = "CashFlow.xml";
+      //lastCashFlowId = getLastCashFlowId(fileName);
     };
 
-    void addCashFlow();
+    //void addCashFlow();
 
 
 };

@@ -5,4 +5,7 @@ BudgetApp.layout
 BudgetApp.depend
 BudgetApp.mm
 users.xml
+expenses.xml
+incomes.xml
+CashFlow.xml
 

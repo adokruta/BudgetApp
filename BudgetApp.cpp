@@ -8,10 +8,10 @@ void BudgetApp :: registerUser()
 void BudgetApp :: loginUser()
 {
     userManager.loginUser();
-    if(userManager.isUserLoggedIn())
-    {
-     cashFlowManager = new CashFlowManager(userManager.getLoggedInUserId());
-    }
+    //if(userManager.isUserLoggedIn())
+   // {
+   //  cashFlowManager = new CashFlowManager(userManager.getLoggedInUserId());
+   // }
 }
 
 bool BudgetApp :: isUserLoggedIn()
@@ -22,8 +22,8 @@ bool BudgetApp :: isUserLoggedIn()
 void BudgetApp :: logoutUser()
 {
     userManager.logoutUser();
-    delete cashFlowManager;
-    cashFlowManager = NULL;
+//    delete cashFlowManager;
+//    cashFlowManager = NULL;
 }
 
 void BudgetApp :: changePassword()
@@ -31,9 +31,18 @@ void BudgetApp :: changePassword()
     userManager.changePassword();
 }
 
-void BudgetApp :: addCashFlow()
+void BudgetApp :: addIncome()
 {
-    cashFlowManager->addCashFlow();
+    incomeManager = new IncomeManager(userManager.getLoggedInUserId());
+    incomeManager->addIncome();
+    delete incomeManager;
+    incomeManager = NULL;
 }
 
-
+void BudgetApp :: addExpense()
+{
+    expenseManager = new ExpenseManager(userManager.getLoggedInUserId());
+    expenseManager->addExpense();
+    delete expenseManager;
+    expenseManager = NULL;
+}

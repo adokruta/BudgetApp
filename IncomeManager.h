@@ -12,13 +12,29 @@
 #include "User.h"
 #include "AuxiliaryMethods.h"
 #include "CashFlowManager.h"
+#include "Income.h"
 
 
 using namespace std;
 
 class IncomeManager : public CashFlowManager
 {
+    string fileName;
+    int lastIncomeId;
 
+    int getLastIncomeId(string fileName);
+
+
+  public:
+
+  IncomeManager(int loggedInUserId) : CashFlowManager(loggedInUserId)
+      {
+          fileName = "incomes.xml";
+          lastIncomeId = getLastIncomeId(fileName);
+      };
+
+    void saveIncomeToFile(Income income);
+    void addIncome();
 
 };
 

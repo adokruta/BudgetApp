@@ -1,6 +1,6 @@
 #include "CashFlowManager.h"
 
-void CashFlowManager :: saveCashFlowToFile(CashFlow cashFlow)
+/*void CashFlowManager :: saveCashFlowToFile(CashFlow cashFlow)
 {
     CMarkup xml;
 
@@ -28,7 +28,7 @@ void CashFlowManager :: saveCashFlowToFile(CashFlow cashFlow)
 
 }
 
-int CashFlowManager :: getLastCashFlowId(string fileName)
+//int CashFlowManager :: getLastCashFlowId(string fileName)
 {
     CMarkup xml;
 
@@ -48,7 +48,7 @@ int CashFlowManager :: getLastCashFlowId(string fileName)
     }
     return lastCashFlowId;
 }
-
+*/
 char* CashFlowManager :: setTodaysDate()
 {
     time_t myTime;
@@ -130,7 +130,7 @@ string CashFlowManager :: setAmount()
     return amount;
 }
 
-void CashFlowManager :: addCashFlow()
+/*void CashFlowManager :: addCashFlow()
 {
     CashFlow cashFlow;
 
@@ -176,7 +176,7 @@ void CashFlowManager :: addCashFlow()
 
 
 }
-
+*/
 bool CashFlowManager :: isTheDateCorrect(int year, int month, int day)
 {
     time_t myTime;

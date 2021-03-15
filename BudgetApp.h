@@ -11,6 +11,8 @@
 #include "UserManager.h"
 #include "AuxiliaryMethods.h"
 #include "CashFlowManager.h"
+#include "IncomeManager.h"
+#include "ExpenseManager.h"
 
 
 using namespace std;
@@ -18,25 +20,28 @@ using namespace std;
 class BudgetApp
 {
     UserManager userManager;
-    CashFlowManager *cashFlowManager;
+    //CashFlowManager *cashFlowManager;
+    IncomeManager *incomeManager;
+    ExpenseManager *expenseManager;
 
 
 public:
 BudgetApp()
 {
-    cashFlowManager = NULL;
+   // cashFlowManager = NULL;
 };
 ~ BudgetApp()
 {
-    delete cashFlowManager;
-    cashFlowManager = NULL;
+    //delete cashFlowManager;
+    //cashFlowManager = NULL;
 }
 void registerUser();
 void loginUser();
 bool isUserLoggedIn();
 void logoutUser();
 void changePassword();
-void addCashFlow();
+void addIncome();
+void addExpense();
 
 
 };
