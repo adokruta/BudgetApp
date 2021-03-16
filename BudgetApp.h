@@ -13,6 +13,7 @@
 #include "CashFlowManager.h"
 #include "IncomeManager.h"
 #include "ExpenseManager.h"
+#include "Balance.h"
 
 
 using namespace std;
@@ -23,6 +24,7 @@ class BudgetApp
     //CashFlowManager *cashFlowManager;
     IncomeManager *incomeManager;
     ExpenseManager *expenseManager;
+    Balance *balance;
 
 
 public:
@@ -42,6 +44,7 @@ void logoutUser();
 void changePassword();
 void addIncome();
 void addExpense();
+void showCurrentMonthBalance();
 
 
 };

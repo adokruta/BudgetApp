@@ -237,7 +237,6 @@ bool UserManager ::  isUserLoggedIn()
     }
 
     return users;
-
  }
 
 void UserManager :: showUsers()

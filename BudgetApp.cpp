@@ -46,3 +46,10 @@ void BudgetApp :: addExpense()
     delete expenseManager;
     expenseManager = NULL;
 }
+
+void BudgetApp :: showCurrentMonthBalance()
+{
+    balance = new Balance(userManager.getLoggedInUserId());
+    delete balance;
+    balance = NULL;
+}
