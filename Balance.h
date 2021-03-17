@@ -3,8 +3,10 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <string>
 #include <conio.h>
+#include <time.h>
 #include "Income.h"
 #include "Expense.h"
 #include "Markup.h"
@@ -19,14 +21,23 @@ class Balance
     vector <Expense> expenses;
 
     vector <Income> loadIncomesFromFile();
-    //vector <Expense> loadExpensesFromFile();
+    vector <Expense> loadExpensesFromFile();
     void showIncomes();
+    void showExpenses();
+    char* getTodaysDate();
+    static int changeTheDateToInt(char* date);
+
+    void showTheCurrentMonthBalance();
 
 public:
     Balance(int loggedInUserId) : LOGGED_IN_USER_ID(loggedInUserId)
     {
        incomes = loadIncomesFromFile();
-       showIncomes();
+       expenses = loadExpensesFromFile();
+       //showIncomes();
+       //showExpenses();
+       showTheCurrentMonthBalance();
+
     };
 
 };
