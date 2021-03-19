@@ -25,7 +25,11 @@ class Balance
     void showIncomes();
     void showExpenses();
     char* getTodaysDate();
+    char*  getLastDayInMonthDate();
     static int changeTheDateToInt(char* date);
+    int returnLastDayInMonth (int month, int year);
+    bool isYearLeap (int year);
+    char*  getFirstDayInMonthDate();
 
     void showTheCurrentMonthBalance();
 

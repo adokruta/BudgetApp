@@ -125,20 +125,35 @@
     {
         char* todaySDate = getTodaysDate();
 
+        int todayDate = changeTheDateToInt(todaySDate);
+
+        char* lastDayInMonthDate = getLastDayInMonthDate();
+
+        int lastDayInMonthDate2 = changeTheDateToInt(lastDayInMonthDate);
+
+        char* firstDayInMonthDate = getFirstDayInMonthDate();
+
+        int firstDayInMonthDate2 = changeTheDateToInt(firstDayInMonthDate);
+
+        cout << firstDayInMonthDate2 << "    " << lastDayInMonthDate2 << endl;
+        getch();
+
+
+
        sort( incomes.begin( ), incomes.end( ), [ ](   Income& income1,  Income& income2 )
         {
             return changeTheDateToInt(income1.getDate()) < changeTheDateToInt(income2.getDate());
-           /* for(int i=0; i<11; i++)
-            {
-                if((*income1.getDate()+i != *income2.getDate()+i))
-                {
-                    return (*income1.getDate()+i < *income2.getDate()+i);
-                }
 
-            }
-*/
         }
         );
+
+        for (int i=0; i<incomes.size(); i++)
+        {
+            if(changeTheDateToInt(incomes[i].getDate()) >= firstDayInMonthDate2 && changeTheDateToInt(incomes[i].getDate()) <= lastDayInMonthDate2)
+            {
+                cout << "Date: " << incomes[i].getDate() << "; " << "Item: " << incomes[i].getItem() << "; " << "Amount: " << incomes[i].getAmount() << endl;
+            }
+        }
         getch();
         showIncomes();
         getch();
@@ -154,6 +169,40 @@
         struct tm *pointer;
         time( &myTime );
         pointer = localtime( &myTime );
+        char *date = asctime( pointer );
+        strftime( date, 11, "%Y-%m-%d", pointer );
+
+        return date;
+     }
+
+         char* Balance :: getLastDayInMonthDate()
+     {
+        time_t myTime;
+        struct tm *pointer;
+        time( &myTime );
+        pointer = localtime( &myTime );
+        pointer -> tm_mday = returnLastDayInMonth(pointer->tm_mon+1, pointer->tm_year+1900);
+
+        cout << "Powinien byæ ostatni dzieñ: " << pointer->tm_mday << endl;
+        getch();
+
+        char *date = asctime( pointer );
+        strftime( date, 11, "%Y-%m-%d", pointer );
+
+        return date;
+     }
+
+          char* Balance :: getFirstDayInMonthDate()
+     {
+        int i = 01;
+        time_t myTime;
+        struct tm *pointer;
+        time( &myTime );
+        pointer = localtime( &myTime );
+        pointer -> tm_mday = i;
+
+        cout << "Powinien byæ pierwszy dzieñ: " << pointer->tm_mday << endl;
+
         char *date = asctime( pointer );
         strftime( date, 11, "%Y-%m-%d", pointer );
 
@@ -187,3 +236,41 @@
      return dateByNr = atoi(alldate.c_str());
      }
 
+int Balance :: returnLastDayInMonth (int month, int year)
+{
+    int lastDayInMonth = 0;
+
+    if ( month == 2 )
+        {
+            if ( isYearLeap(year) )
+                {
+                    lastDayInMonth = 29;
+                    return lastDayInMonth;
+                }
+            else
+                {
+                    lastDayInMonth = 28;
+                    return lastDayInMonth;
+                }
+        }
+
+    else if ( month == 4 || month == 6 || month == 9 || month == 11 )
+        {
+            lastDayInMonth = 30;
+            return lastDayInMonth;
+        }
+
+     else if ( month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+        {
+            lastDayInMonth = 31;
+            return lastDayInMonth;
+        }
+}
+
+bool Balance :: isYearLeap (int year)
+{
+ if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+    return true;
+ else
+    return false;
+}
