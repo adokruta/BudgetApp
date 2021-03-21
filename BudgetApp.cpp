@@ -62,3 +62,11 @@ void BudgetApp :: showPreviousMonthBalance()
     delete balance;
     balance = NULL;
 }
+
+void BudgetApp :: showBalanceForTheSelectedPeriod()
+{
+    balance = new Balance(userManager.getLoggedInUserId());
+    balance -> showTheBalanceForTheSelectedPeriod();
+    delete balance;
+    balance = NULL;
+}

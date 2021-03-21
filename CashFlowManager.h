@@ -28,7 +28,9 @@ class CashFlowManager
 
     const int LOGGED_IN_USER_ID;
     char* setTodaysDate();
+
     char* setUsersDate();
+
     string setItem();
     string setAmount();
    // void saveCashFlowToFile(CashFlow cashFlow);
@@ -48,7 +50,6 @@ public:
     };
 
     //void addCashFlow();
-
 
 };
 

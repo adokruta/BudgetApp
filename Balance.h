@@ -16,6 +16,7 @@ using namespace std;
 
 class Balance
 {
+
     const int LOGGED_IN_USER_ID;
     vector <Income> incomes;
     vector <Expense> expenses;
@@ -32,6 +33,11 @@ class Balance
     bool isYearLeap (int year);
     char*  getFirstDayInMonthDate();
     char*  getFirstDayInPreviousMonthDate();
+    char* setUsersDate();
+
+    bool isTheDateCorrect(int year, int month, int day);
+
+    bool isNumberOfDaysInMonthCorrect (int numberOfDays, int month, int year);
 
 
 
@@ -41,14 +47,11 @@ public:
     {
        incomes = loadIncomesFromFile();
        expenses = loadExpensesFromFile();
-       //showIncomes();
-       //showExpenses();
-       //showTheCurrentMonthBalance();
-
     };
 
     void showTheCurrentMonthBalance();
     void showThePreviousMonthBalance();
+    void showTheBalanceForTheSelectedPeriod();
 };
 
 #endif

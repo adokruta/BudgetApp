@@ -64,7 +64,6 @@ char* CashFlowManager :: setTodaysDate()
 
 char* CashFlowManager :: setUsersDate()
 {
-
     time_t myTime;
     struct tm *pointer;
     time( &myTime );

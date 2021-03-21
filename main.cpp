@@ -54,8 +54,8 @@ int main()
                 budgetApp.showPreviousMonthBalance();
                 break;
             case '5':
-                cout << "Show balance from selected period";
-               // budgetApp.();
+                cout << "Show balance from selected period: " << endl;
+                budgetApp.showBalanceForTheSelectedPeriod();
                 break;
             case '6':
                 budgetApp.changePassword();
