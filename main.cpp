@@ -50,8 +50,8 @@ int main()
                 budgetApp.showCurrentMonthBalance();
                 break;
             case '4':
-                cout << "Show balance from previous month";
-               // budgetApp.();
+                cout << "Show balance from previous month: " << endl;
+                budgetApp.showPreviousMonthBalance();
                 break;
             case '5':
                 cout << "Show balance from selected period";

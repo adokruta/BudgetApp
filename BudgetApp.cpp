@@ -50,6 +50,15 @@ void BudgetApp :: addExpense()
 void BudgetApp :: showCurrentMonthBalance()
 {
     balance = new Balance(userManager.getLoggedInUserId());
+    balance -> showTheCurrentMonthBalance();
+    delete balance;
+    balance = NULL;
+}
+
+void BudgetApp :: showPreviousMonthBalance()
+{
+    balance = new Balance(userManager.getLoggedInUserId());
+    balance -> showThePreviousMonthBalance();
     delete balance;
     balance = NULL;
 }

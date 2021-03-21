@@ -26,12 +26,15 @@ class Balance
     void showExpenses();
     char* getTodaysDate();
     char*  getLastDayInMonthDate();
+    char* getLastDayInPreviousMonthDate();
     static int changeTheDateToInt(char* date);
     int returnLastDayInMonth (int month, int year);
     bool isYearLeap (int year);
     char*  getFirstDayInMonthDate();
+    char*  getFirstDayInPreviousMonthDate();
 
-    void showTheCurrentMonthBalance();
+
+
 
 public:
     Balance(int loggedInUserId) : LOGGED_IN_USER_ID(loggedInUserId)
@@ -40,10 +43,12 @@ public:
        expenses = loadExpensesFromFile();
        //showIncomes();
        //showExpenses();
-       showTheCurrentMonthBalance();
+       //showTheCurrentMonthBalance();
 
     };
 
+    void showTheCurrentMonthBalance();
+    void showThePreviousMonthBalance();
 };
 
 #endif

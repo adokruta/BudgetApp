@@ -45,6 +45,7 @@ void changePassword();
 void addIncome();
 void addExpense();
 void showCurrentMonthBalance();
+void showPreviousMonthBalance();
 
 
 };

@@ -192,6 +192,24 @@
         return date;
      }
 
+     char* Balance :: getLastDayInPreviousMonthDate()
+     {
+        time_t myTime;
+        struct tm *pointer;
+        time( &myTime );
+        pointer = localtime( &myTime );
+        pointer -> tm_mday = returnLastDayInMonth(pointer->tm_mon, pointer->tm_year+1900);
+        pointer -> tm_mon --;
+
+        cout << "Powinien byæ ostatni dzieñ: " << pointer->tm_mday << endl;
+        getch();
+
+        char *date = asctime( pointer );
+        strftime( date, 11, "%Y-%m-%d", pointer );
+
+        return date;
+     }
+
           char* Balance :: getFirstDayInMonthDate()
      {
         int i = 01;
@@ -208,6 +226,25 @@
 
         return date;
      }
+
+     char* Balance :: getFirstDayInPreviousMonthDate()
+     {
+        int i = 01;
+        time_t myTime;
+        struct tm *pointer;
+        time( &myTime );
+        pointer = localtime( &myTime );
+        pointer -> tm_mday = i;
+        pointer -> tm_mon --;
+
+        cout << "Powinien byæ pierwszy dzieñ: " << pointer->tm_mday << endl;
+
+        char *date = asctime( pointer );
+        strftime( date, 11, "%Y-%m-%d", pointer );
+
+        return date;
+     }
+
 
      int Balance :: changeTheDateToInt (char* date)
      {
@@ -274,3 +311,46 @@ bool Balance :: isYearLeap (int year)
  else
     return false;
 }
+
+ void Balance :: showThePreviousMonthBalance()
+ {
+        char* todaySDate = getTodaysDate();
+
+        int todayDate = changeTheDateToInt(todaySDate);
+
+        char* lastDayInPreviousMonthDate = getLastDayInPreviousMonthDate();
+
+        int lastDayInPreviousMonthDate2 = changeTheDateToInt(lastDayInPreviousMonthDate);
+
+        char* firstDayInPreviousMonthDate = getFirstDayInPreviousMonthDate();
+
+        int firstDayInPreviousMonthDate2 = changeTheDateToInt(firstDayInPreviousMonthDate);
+
+        cout << firstDayInPreviousMonthDate2 << "    " << lastDayInPreviousMonthDate2 << endl;
+        getch();
+
+
+
+       sort( incomes.begin( ), incomes.end( ), [ ](   Income& income1,  Income& income2 )
+        {
+            return changeTheDateToInt(income1.getDate()) < changeTheDateToInt(income2.getDate());
+
+        }
+        );
+
+        for (int i=0; i<incomes.size(); i++)
+        {
+            if(changeTheDateToInt(incomes[i].getDate()) >= firstDayInPreviousMonthDate2 && changeTheDateToInt(incomes[i].getDate()) <= lastDayInPreviousMonthDate2)
+            {
+                cout << "Date: " << incomes[i].getDate() << "; " << "Item: " << incomes[i].getItem() << "; " << "Amount: " << incomes[i].getAmount() << endl;
+            }
+        }
+        getch();
+
+
+
+
+
+
+
+ }
