@@ -46,16 +46,16 @@ int main()
                 budgetApp.addExpense();
                 break;
             case '3':
-                cout << "Show balance";
-               // budgetApp.();
+                cout << "Show current month balance:" << endl;
+                budgetApp.showCurrentMonthBalance();
                 break;
             case '4':
-                cout << "Show balance from previous month";
-               // budgetApp.();
+                cout << "Show balance from previous month: " << endl;
+                budgetApp.showPreviousMonthBalance();
                 break;
             case '5':
-                cout << "Show balance from selected period";
-               // budgetApp.();
+                cout << "Show balance from selected period: " << endl;
+                budgetApp.showBalanceForTheSelectedPeriod();
                 break;
             case '6':
                 budgetApp.changePassword();
