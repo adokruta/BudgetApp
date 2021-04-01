@@ -1,17 +1,17 @@
 #include "ExpenseManager.h"
 
+
 void ExpenseManager :: saveExpenseToFile(Expense expense)
 {
     CMarkup xml;
 
-    bool fileExists = xml.Load( "expenses.xml" );
+    bool fileExists = xml.Load( fileName );
 
     if (!fileExists)
-    {
-        xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
-        xml.AddElem("Expenses");
-    }
-
+        {
+            xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+            xml.AddElem("Expenses");
+        }
 
     xml.FindElem();
     xml.IntoElem();
@@ -25,7 +25,6 @@ void ExpenseManager :: saveExpenseToFile(Expense expense)
     xml.Save("expenses.xml");
 
     lastExpenseId++;
-
 }
 
 int ExpenseManager :: getLastExpenseId(string fileName)
@@ -35,17 +34,17 @@ int ExpenseManager :: getLastExpenseId(string fileName)
     bool fileExists = xml.Load( fileName );
 
     if(!fileExists)
-    {
-        return lastExpenseId = 0;
-    }
+        {
+            return lastExpenseId = 0;
+        }
 
     xml.FindElem();
     xml.IntoElem();
     while ( xml.FindElem("Expense") )
-    {
-         xml.FindChildElem( "expenseId" );
-         lastExpenseId = atoi(MCD_2PCSZ(xml.GetChildData()));
-    }
+        {
+             xml.FindChildElem( "expenseId" );
+             lastExpenseId = atoi(MCD_2PCSZ(xml.GetChildData()));
+        }
     return lastExpenseId;
 }
 
@@ -59,39 +58,39 @@ void ExpenseManager :: addExpense()
 
     char sign;
 
+    do
+        {
+            system ("cls");
+            cout << "Whether the expense is for today?" << endl;
+            cout << "If yes -> insert y" << endl;
+            cout << "If no -> insert n" << endl;
+            cout << "Your choice: ";
+
+            sign = AuxiliaryMethods :: loadCharacter();
+
+            if(sign == 'y')
+                {
+                   expense.setDate(DateManager :: getTodaysDate());
+                }
+            else if(sign == 'n')
+                {
+                    expense.setDate(DateManager :: getUsersDate());
+                }
+            else
+                {
+                    cout << "Please select character y/n.";
+                    getch();
+                }
+        }
+    while(sign != 'y' && sign != 'n');
+
+    expense.setItem(setItem());
+
+    expense.setAmount(setAmount());
+
+    saveExpenseToFile(expense);
+
     system ("cls");
-    cout << "Is it for today?" << endl;
-    cout << "If yes -> insert y, otherwise insert -> n" << endl;
-
-    sign = AuxiliaryMethods :: loadCharacter();
-
-    if(sign == 'y')
-    {
-
-       expense.setDate(setTodaysDate());
-
-        expense.setItem(setItem());
-
-        expense.setAmount(setAmount());
-
-        saveExpenseToFile(expense);
-
-
-    }
-    else if(sign == 'n')
-    {
-        expense.setDate(setUsersDate());
-
-        expense.setItem(setItem());
-
-        expense.setAmount(setAmount());
-
-        saveExpenseToFile(expense);
-    }
-    else
-    {
-        cout << "Please select character y/n ones again.";
-    }
-
-
+    cout << "Income added";
+    getch();
 }

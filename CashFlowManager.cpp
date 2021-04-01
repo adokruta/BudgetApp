@@ -1,54 +1,6 @@
 #include "CashFlowManager.h"
 
-/*void CashFlowManager :: saveCashFlowToFile(CashFlow cashFlow)
-{
-    CMarkup xml;
-
-    bool fileExists = xml.Load( "CashFlow.xml" );
-
-    if (!fileExists)
-    {
-        xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
-        xml.AddElem("CashFlows");
-    }
-
-
-    xml.FindElem();
-    xml.IntoElem();
-    xml.AddElem("CashFlow");
-    xml.IntoElem();
-    xml.AddElem("userId", cashFlow.getuserId());
-    xml.AddElem("cashFlowId", cashFlow.getCashFlowId());
-    xml.AddElem("date", cashFlow.getDate());
-    xml.AddElem("item", cashFlow.getItem());
-    xml.AddElem("amount", cashFlow.getAmount());
-    xml.Save("CashFlow.xml");
-
-    lastCashFlowId++;
-
-}
-
-//int CashFlowManager :: getLastCashFlowId(string fileName)
-{
-    CMarkup xml;
-
-    bool fileExists = xml.Load( fileName );
-
-    if(!fileExists)
-    {
-        return lastCashFlowId = 0;
-    }
-
-    xml.FindElem();
-    xml.IntoElem();
-    while ( xml.FindElem("CashFlow") )
-    {
-         xml.FindChildElem( "cashFlowId" );
-         lastCashFlowId = atoi(MCD_2PCSZ(xml.GetChildData()));
-    }
-    return lastCashFlowId;
-}
-*/
+/*
 char* CashFlowManager :: setTodaysDate()
 {
     time_t myTime;
@@ -84,9 +36,9 @@ char* CashFlowManager :: setUsersDate()
 
         cout << endl;
     }
-    while(!isTheDateCorrect(year, month, day));
+    while(!DataManager :: isTheDateCorrect(year, month, day));
 
-    if(isTheDateCorrect(year, month, day))
+    if(DataManager :: isTheDateCorrect(year, month, day))
     {
         cout << "The date is correct." << endl;
         getch();
@@ -106,7 +58,7 @@ char* CashFlowManager :: setUsersDate()
     }
 
 }
-
+*/
 
 string CashFlowManager :: setItem()
 {
@@ -129,53 +81,7 @@ string CashFlowManager :: setAmount()
     return amount;
 }
 
-/*void CashFlowManager :: addCashFlow()
-{
-    CashFlow cashFlow;
-
-    cashFlow.setuserId(LOGGED_IN_USER_ID);
-
-    cashFlow.setCashFlowId(lastCashFlowId + 1);
-
-    char sign;
-
-    system ("cls");
-    cout << "Is it for today?" << endl;
-    cout << "If yes -> insert y, otherwise insert -> n" << endl;
-
-    sign = AuxiliaryMethods :: loadCharacter();
-
-    if(sign == 'y')
-    {
-
-        cashFlow.setDate(setTodaysDate());
-
-        cashFlow.setItem(setItem());
-
-        cashFlow.setAmount(setAmount());
-
-        saveCashFlowToFile(cashFlow);
-
-
-    }
-    else if(sign == 'n')
-    {
-        cashFlow.setDate(setUsersDate());
-
-        cashFlow.setItem(setItem());
-
-        cashFlow.setAmount(setAmount());
-
-        saveCashFlowToFile(cashFlow);
-    }
-    else
-    {
-        cout << "Please select character y/n ones again.";
-    }
-
-
-}
-*/
+/*
 bool CashFlowManager :: isTheDateCorrect(int year, int month, int day)
 {
     time_t myTime;
@@ -252,3 +158,4 @@ bool CashFlowManager :: isNumberOfDaysInMonthCorrect (int numberOfDays, int mont
                 return false;
         }
 }
+*/
