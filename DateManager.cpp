@@ -134,3 +134,121 @@ char* DateManager :: getUsersDate()
     }
 
 }
+
+int DateManager :: changeTheDateToInt (char* date)
+{
+    string year="0000", month="00", day="00", wholeDate;
+
+    int dateNumerically;
+
+    for(int i=0; i<4; i++)
+    {
+        year[i] = *(date+i);
+    }
+
+    for(int i=0; i<2; i++)
+    {
+        month[i] = *(date+i+5);
+    }
+
+    for(int i=0; i<2; i++)
+    {
+        day[i] = *(date+i+8);
+    }
+
+    wholeDate = year + month + day;
+
+    return dateNumerically = atoi(wholeDate.c_str());
+}
+
+int DateManager :: returnLastDayInMonth (int month, int year)
+{
+    int lastDayInMonth = 0;
+
+    if ( month == 2 )
+    {
+        if ( DateManager :: isYearLeap(year) )
+        {
+            lastDayInMonth = 29;
+            return lastDayInMonth;
+        }
+        else
+        {
+            lastDayInMonth = 28;
+            return lastDayInMonth;
+        }
+    }
+
+    else if ( month == 4 || month == 6 || month == 9 || month == 11 )
+    {
+        lastDayInMonth = 30;
+        return lastDayInMonth;
+    }
+
+    else if ( month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+    {
+        lastDayInMonth = 31;
+        return lastDayInMonth;
+    }
+}
+
+char* DateManager :: getDateOfTheLastDayOfTheCurrentMonth()
+{
+    time_t myTime;
+    struct tm *pointer;
+    time( &myTime );
+    pointer = localtime( &myTime );
+    pointer -> tm_mday = returnLastDayInMonth(pointer->tm_mon+1, pointer->tm_year+1900);
+
+    char *date = asctime( pointer );
+    strftime( date, 11, "%Y-%m-%d", pointer );
+
+    return date;
+}
+
+char* DateManager :: getDateOfTheLastDayOfThePreviousMonth()
+{
+    time_t myTime;
+    struct tm *pointer;
+    time( &myTime );
+    pointer = localtime( &myTime );
+    pointer -> tm_mday = returnLastDayInMonth(pointer->tm_mon, pointer->tm_year+1900);
+    pointer -> tm_mon --;
+
+    char *date = asctime( pointer );
+    strftime( date, 11, "%Y-%m-%d", pointer );
+
+    return date;
+}
+
+char* DateManager :: getDateOfTheFirstDayOfTheCurrentMonth()
+{
+    int i = 01;
+    time_t myTime;
+    struct tm *pointer;
+    time( &myTime );
+    pointer = localtime( &myTime );
+    pointer -> tm_mday = i;
+
+    char *date = asctime( pointer );
+    strftime( date, 11, "%Y-%m-%d", pointer );
+
+    return date;
+}
+
+char* DateManager :: getDateOfTheFirstDayOfThePreviousMonth()
+{
+    int i = 01;
+    time_t myTime;
+    struct tm *pointer;
+    time( &myTime );
+    pointer = localtime( &myTime );
+    pointer -> tm_mday = i;
+    pointer -> tm_mon --;
+
+
+    char *date = asctime( pointer );
+    strftime( date, 11, "%Y-%m-%d", pointer );
+
+    return date;
+}

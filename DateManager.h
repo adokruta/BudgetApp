@@ -19,6 +19,12 @@ public:
     static bool isNumberOfDaysInMonthCorrect (int numberOfDays, int month, int year);
     static char* getTodaysDate();
     static char* getUsersDate();
+    static int changeTheDateToInt(char* date);
+    static int returnLastDayInMonth (int month, int year);
+    static char*  getDateOfTheLastDayOfTheCurrentMonth();
+    static char* getDateOfTheLastDayOfThePreviousMonth();
+    static char*  getDateOfTheFirstDayOfTheCurrentMonth();
+    static char*  getDateOfTheFirstDayOfThePreviousMonth();
 
 
 

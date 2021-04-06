@@ -1,12 +1,5 @@
 #include "AuxiliaryMethods.h"
 
-string AuxiliaryMethods :: konwerjsaIntNaString(int liczba)
-{
-    ostringstream ss;
-    ss << liczba;
-    string str = ss.str();
-    return str;
-}
 
 string AuxiliaryMethods :: loadLine()
 {
@@ -51,35 +44,6 @@ char AuxiliaryMethods :: loadCharacter()
     return sign;
 }
 
-string AuxiliaryMethods :: zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst)
-{
-    if (!tekst.empty())
-    {
-        transform(tekst.begin(), tekst.end(), tekst.begin(), ::tolower);
-        tekst[0] = toupper(tekst[0]);
-    }
-    return tekst;
-}
-
-int AuxiliaryMethods :: konwersjaStringNaInt(string liczba)
-{
-    int liczbaInt;
-    istringstream iss(liczba);
-    iss >> liczbaInt;
-
-    return liczbaInt;
-}
-
-string AuxiliaryMethods :: pobierzLiczbe(string tekst, int pozycjaZnaku)
-{
-    string liczba = "";
-    while(isdigit(tekst[pozycjaZnaku]) == true)
-    {
-        liczba += tekst[pozycjaZnaku];
-        pozycjaZnaku ++;
-    }
-    return liczba;
-}
 
 char AuxiliaryMethods ::  selectOptionFromUserMenu()
 {
@@ -118,25 +82,6 @@ int  AuxiliaryMethods ::  wczytajLiczbeCalkowita()
         cout << "To nie jest liczba. Wpisz ponownie. " << endl;
     }
     return liczba;
-}
-
-char AuxiliaryMethods :: wybierzOpcjeZMenuEdycja()
-{
-    char wybor;
-
-    cout << endl << "   >>> MENU  EDYCJA <<<" << endl;
-    cout << "---------------------------" << endl;
-    cout << "Ktore dane zaktualizowac: " << endl;
-    cout << "1 - Imie" << endl;
-    cout << "2 - Nazwisko" << endl;
-    cout << "3 - Numer telefonu" << endl;
-    cout << "4 - Email" << endl;
-    cout << "5 - Adres" << endl;
-    cout << "6 - Powrot " << endl;
-    cout << endl << "Twoj wybor: ";
-    wybor = loadCharacter();
-
-    return wybor;
 }
 
 string AuxiliaryMethods :: changeCommaToPeriod( string wordToChange)
