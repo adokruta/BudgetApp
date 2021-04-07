@@ -38,7 +38,7 @@ vector <Income> Balance :: loadIncomesFromFile()
             income.setItem(xml.GetData());
 
             xml.FindElem( "amount" );
-            income.setAmount(xml.GetData());
+            income.setAmount(atof( MCD_2PCSZ(xml.GetData())));
 
             incomes.push_back(income);
         }
@@ -85,7 +85,7 @@ vector <Expense> Balance :: loadExpensesFromFile()
             expense.setItem(xml.GetData());
 
             xml.FindElem( "amount" );
-            expense.setAmount(xml.GetData());
+            expense.setAmount(atof( MCD_2PCSZ(xml.GetData())));
 
             expenses.push_back(expense);
         }
@@ -122,7 +122,7 @@ void Balance :: showTheCurrentMonthBalance()
         if(DateManager :: changeTheDateToInt(incomes[i].getDate()) >= dateOfTheFirstDayOfTheCurrentMonthNumerically && DateManager :: changeTheDateToInt(incomes[i].getDate()) <= dateOfTheLastDayOfTheCurrentMonthNumerically)
         {
             cout << "Date: " << incomes[i].getDate() << "; " << "Item: " << incomes[i].getItem() << "; " << "Amount: " << incomes[i].getAmount() << endl;
-            sumOfIncomes += atof((incomes[i].getAmount()).c_str());
+            sumOfIncomes += (incomes[i].getAmount());
         }
     }
 
@@ -134,7 +134,7 @@ void Balance :: showTheCurrentMonthBalance()
         if(DateManager :: changeTheDateToInt(expenses[i].getDate()) >= dateOfTheFirstDayOfTheCurrentMonthNumerically && DateManager :: changeTheDateToInt(expenses[i].getDate()) <= dateOfTheLastDayOfTheCurrentMonthNumerically)
         {
             cout << "Date: " << expenses[i].getDate() << "; " << "Item: " << expenses[i].getItem() << "; " << "Amount: " << expenses[i].getAmount() << endl;
-            sumOfExpenses += atof((expenses[i].getAmount()).c_str());
+            sumOfExpenses += (expenses[i].getAmount());
         }
     }
 
@@ -177,7 +177,7 @@ void Balance :: showThePreviousMonthBalance()
         if(DateManager :: changeTheDateToInt(incomes[i].getDate()) >= dateOfTheFirstDayOfThePreviousMonthNumerically && DateManager :: changeTheDateToInt(incomes[i].getDate()) <= dateOfTheLastDayOfThePreviousMonthNumerically)
         {
             cout << "Date: " << incomes[i].getDate() << "; " << "Item: " << incomes[i].getItem() << "; " << "Amount: " << incomes[i].getAmount() << endl;
-            sumOfIncomes += atof((incomes[i].getAmount()).c_str());
+            sumOfIncomes += (incomes[i].getAmount());
         }
     }
 
@@ -189,7 +189,7 @@ void Balance :: showThePreviousMonthBalance()
         if(DateManager :: changeTheDateToInt(expenses[i].getDate()) >= dateOfTheFirstDayOfThePreviousMonthNumerically && DateManager :: changeTheDateToInt(expenses[i].getDate()) <= dateOfTheLastDayOfThePreviousMonthNumerically)
         {
             cout << "Date: " << expenses[i].getDate() << "; " << "Item: " << expenses[i].getItem() << "; " << "Amount: " << expenses[i].getAmount() << endl;
-            sumOfExpenses += atof((expenses[i].getAmount()).c_str());
+            sumOfExpenses +=(expenses[i].getAmount());
         }
     }
 
@@ -235,7 +235,7 @@ void Balance :: showThePreviousMonthBalance()
         if(DateManager :: changeTheDateToInt(incomes[i].getDate()) >= beginDateNumerically && DateManager :: changeTheDateToInt(incomes[i].getDate()) <= endDateNumerically)
         {
             cout << "Date: " << incomes[i].getDate() << "; " << "Item: " << incomes[i].getItem() << "; " << "Amount: " << incomes[i].getAmount() << endl;
-            sumOfIncomes += atof((incomes[i].getAmount()).c_str());
+            sumOfIncomes += (incomes[i].getAmount());
         }
     }
 
@@ -248,7 +248,7 @@ void Balance :: showThePreviousMonthBalance()
         if(DateManager :: changeTheDateToInt(expenses[i].getDate()) >= beginDateNumerically && DateManager :: changeTheDateToInt(expenses[i].getDate()) <= endDateNumerically)
         {
             cout << "Date: " << expenses[i].getDate() << "; " << "Item: " << expenses[i].getItem() << "; " << "Amount: " << expenses[i].getAmount() << endl;
-            sumOfExpenses += atof((expenses[i].getAmount()).c_str());
+            sumOfExpenses += (expenses[i].getAmount());
         }
     }
 

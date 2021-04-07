@@ -67,23 +67,6 @@ char AuxiliaryMethods ::  selectOptionFromUserMenu()
     return choice;
 }
 
-int  AuxiliaryMethods ::  wczytajLiczbeCalkowita()
-{
-    string wejscie = "";
-    int liczba = 0;
-
-    while (true)
-    {
-        getline(cin, wejscie);
-
-        stringstream myStream(wejscie);
-        if (myStream >> liczba)
-            break;
-        cout << "To nie jest liczba. Wpisz ponownie. " << endl;
-    }
-    return liczba;
-}
-
 string AuxiliaryMethods :: changeCommaToPeriod( string wordToChange)
 {
     for (int i=0; i <= wordToChange.size(); i++)
@@ -93,6 +76,32 @@ string AuxiliaryMethods :: changeCommaToPeriod( string wordToChange)
             wordToChange[i] = '.';
         }
     }
-
     return wordToChange;
+}
+
+float  AuxiliaryMethods ::  loadFloatingPointNumber()
+{
+    string enter = "";
+    float number = 0;
+
+    while (true)
+    {
+        getline(cin, enter);
+
+        enter = changeCommaToPeriod(enter);
+
+        stringstream myStream(enter);
+        if (myStream >> number)
+            break;
+        cout << "This is not a number. Please try again. " << endl;
+    }
+    return number;
+}
+
+string AuxiliaryMethods :: floatToString(float number)
+{
+    ostringstream ss;
+    ss << number;
+    string str = ss.str();
+    return str;
 }

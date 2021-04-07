@@ -21,7 +21,7 @@ void IncomeManager :: saveIncomeToFile(Income income)
     xml.AddElem("incomeId", income.getCashFlowId());
     xml.AddElem("date", income.getDate());
     xml.AddElem("item", income.getItem());
-    xml.AddElem("amount", income.getAmount());
+    xml.AddElem("amount", AuxiliaryMethods :: floatToString(income.getAmount()));
     xml.Save("incomes.xml");
 
     lastIncomeId++;

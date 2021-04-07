@@ -21,7 +21,7 @@ void ExpenseManager :: saveExpenseToFile(Expense expense)
     xml.AddElem("expenseId", expense.getCashFlowId());
     xml.AddElem("date", expense.getDate());
     xml.AddElem("item", expense.getItem());
-    xml.AddElem("amount", expense.getAmount());
+    xml.AddElem("amount", AuxiliaryMethods :: floatToString(expense.getAmount()));
     xml.Save("expenses.xml");
 
     lastExpenseId++;

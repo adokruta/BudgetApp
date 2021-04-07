@@ -24,9 +24,10 @@
     {
         item = newItem;
     }
-    void CashFlow :: setAmount(string newAmount)
+    void CashFlow :: setAmount(float newAmount)
     {
         amount = newAmount;
+
     }
 
     int CashFlow :: getuserId()
@@ -47,7 +48,7 @@
     {
         return item;
     }
-    string CashFlow :: getAmount()
+    float CashFlow :: getAmount()
     {
         return amount;
     }
