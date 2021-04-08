@@ -2,7 +2,6 @@
 #define CASHFLOW_H
 
 #include <iostream>
-#include <conio.h>
 
 using namespace std;
 
@@ -14,8 +13,8 @@ class CashFlow
     string item;
     float amount;
 
-
 public:
+
     void setuserId(int newUserId);
     void setCashFlowId(int newCashFlowId);
     void setDate(char *newDate);
@@ -27,8 +26,6 @@ public:
     char* getDate();
     string getItem();
     float getAmount();
-
-
 };
 
 #endif

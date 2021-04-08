@@ -20,14 +20,15 @@
             date[i] = newDate[i];
         }
     }
+
     void CashFlow :: setItem(string newItem)
     {
         item = newItem;
     }
+
     void CashFlow :: setAmount(float newAmount)
     {
         amount = newAmount;
-
     }
 
     int CashFlow :: getuserId()
@@ -35,7 +36,7 @@
         return userId;
     }
 
-      int CashFlow :: getCashFlowId()
+    int CashFlow :: getCashFlowId()
     {
         return cashFlowId;
     }
@@ -44,10 +45,12 @@
     {
         return date;
     }
+
     string CashFlow :: getItem()
     {
         return item;
     }
+
     float CashFlow :: getAmount()
     {
         return amount;

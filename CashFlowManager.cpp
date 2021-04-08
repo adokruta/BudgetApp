@@ -13,7 +13,7 @@ float CashFlowManager :: setAmount()
 {
     float amount;
     system ("cls");
-    cout << "Specify the amount of income." << endl;
+    cout << "Specify the amount." << endl;
     amount = AuxiliaryMethods :: loadFloatingPointNumber();
     return amount;
 }

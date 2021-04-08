@@ -2,7 +2,6 @@
 #define CASHFLOWMANAGER_H
 
 #include <iostream>
-#include <conio.h>
 
 #include "AuxiliaryMethods.h"
 #include "DateManager.h"
@@ -15,10 +14,8 @@ class CashFlowManager
     protected:
 
     const int LOGGED_IN_USER_ID;
-
     string setItem();
     float setAmount();
-
     AuxiliaryMethods auxiliaryMethods;
 
 public:

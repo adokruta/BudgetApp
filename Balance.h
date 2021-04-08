@@ -4,8 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <conio.h>
-
 
 #include "Income.h"
 #include "Expense.h"

@@ -1,31 +1,37 @@
 #include "DateManager.h"
 
-bool DateManager :: isTheDateCorrect(int year, int month, int day)
+struct tm* DateManager :: setLocaltime()
 {
     time_t myTime;
-    struct tm *pointer;
+    tm *pointer;
     time( &myTime );
-    pointer = localtime( &myTime );
+
+    return pointer = localtime( &myTime );
+}
+
+bool DateManager :: isTheDateCorrect(int year, int month, int day)
+{
+    tm* pointer = setLocaltime();
 
     if(year < 2000 || year > pointer->tm_year + 1900)
     {
-        cout << "The date should be between 2000-01-01 and the last day of the current month. Try again." << endl;
+        cout << "Invalid year number. The date should be between 2000-01-01 and the last day of the current month. Try again." << endl;
         getch();
         return false;
     }
 
-    if(month < 1 || month > 12)
-      {
-          cout << "Invalid month number. Enter a number from 1 to 12. " << endl;
-          getch();
-          return false;
-      }
+    if(month < 1 || month > pointer ->tm_mon+1)
+    {
+        cout << "Invalid month number. The date should be between 2000-01-01 and the last day of the current month. Try again. " << endl;
+        getch();
+        return false;
+    }
 
     if(!isNumberOfDaysInMonthCorrect(day, month, year))
     {
-          cout << "Invalid day of the month. Check if the month has so many days." << endl;
-          getch();
-          return false;
+        cout << "Invalid day of the month. Check if the month has too many days." << endl;
+        getch();
+        return false;
     }
 
     else
@@ -34,55 +40,53 @@ bool DateManager :: isTheDateCorrect(int year, int month, int day)
 
 bool DateManager :: isYearLeap (int year)
 {
- if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
-    return true;
- else
-    return false;
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+        return true;
+    else
+        return false;
 }
 
 bool DateManager :: isNumberOfDaysInMonthCorrect (int numberOfDays, int month, int year)
 {
     if ( month == 2 )
+    {
+        if ( isYearLeap(year) )
         {
-            if ( isYearLeap(year) )
-                {
-                    if (numberOfDays > 0 && numberOfDays < 30)
-                        return true;
-                    else
-                        return false;
-                }
+            if (numberOfDays > 0 && numberOfDays < 30)
+                return true;
             else
-                {
-                    if (numberOfDays > 0 && numberOfDays < 29)
-                        return true;
-                    else
-                        return false;
-                }
+                return false;
         }
+        else
+        {
+            if (numberOfDays > 0 && numberOfDays < 29)
+                return true;
+            else
+                return false;
+        }
+    }
 
     else if ( month == 4 || month == 6 || month == 9 || month == 11 )
-        {
-            if (numberOfDays > 0 && numberOfDays < 31)
-                return true;
-            else
-                return false;
-        }
+    {
+        if (numberOfDays > 0 && numberOfDays < 31)
+            return true;
+        else
+            return false;
+    }
 
-     else if ( month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
-        {
-            if (numberOfDays > 0 && numberOfDays < 32)
-                return true;
-            else
-                return false;
-        }
+    else if ( month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+    {
+        if (numberOfDays > 0 && numberOfDays < 32)
+            return true;
+        else
+            return false;
+    }
 }
 
 char* DateManager :: getTodaysDate()
 {
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
-    pointer = localtime( &myTime );
+    tm* pointer = setLocaltime();
+
     char *date = asctime( pointer );
     strftime( date, 11, "%Y-%m-%d", pointer );
 
@@ -92,15 +96,12 @@ char* DateManager :: getTodaysDate()
 
 char* DateManager :: getUsersDate()
 {
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
+    tm *pointer = setLocaltime();
 
     int year, month, day;
 
     do
     {
-        system ("cls");
         cout << "Enter the year: ";
         cin >> year;
 
@@ -116,10 +117,6 @@ char* DateManager :: getUsersDate()
 
     if(isTheDateCorrect(year, month, day))
     {
-        cout << "The date is correct." << endl;
-        getch();
-
-        pointer = localtime(& myTime);
         pointer->tm_year = year - 1900;
         pointer->tm_mon = month - 1;
         pointer ->tm_mday = day;
@@ -194,10 +191,8 @@ int DateManager :: returnLastDayInMonth (int month, int year)
 
 char* DateManager :: getDateOfTheLastDayOfTheCurrentMonth()
 {
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
-    pointer = localtime( &myTime );
+    tm *pointer = setLocaltime();
+
     pointer -> tm_mday = returnLastDayInMonth(pointer->tm_mon+1, pointer->tm_year+1900);
 
     char *date = asctime( pointer );
@@ -208,10 +203,8 @@ char* DateManager :: getDateOfTheLastDayOfTheCurrentMonth()
 
 char* DateManager :: getDateOfTheLastDayOfThePreviousMonth()
 {
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
-    pointer = localtime( &myTime );
+    tm *pointer = setLocaltime();
+
     pointer -> tm_mday = returnLastDayInMonth(pointer->tm_mon, pointer->tm_year+1900);
     pointer -> tm_mon --;
 
@@ -224,10 +217,9 @@ char* DateManager :: getDateOfTheLastDayOfThePreviousMonth()
 char* DateManager :: getDateOfTheFirstDayOfTheCurrentMonth()
 {
     int i = 01;
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
-    pointer = localtime( &myTime );
+
+    tm *pointer = setLocaltime();
+
     pointer -> tm_mday = i;
 
     char *date = asctime( pointer );
@@ -239,13 +231,11 @@ char* DateManager :: getDateOfTheFirstDayOfTheCurrentMonth()
 char* DateManager :: getDateOfTheFirstDayOfThePreviousMonth()
 {
     int i = 01;
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
-    pointer = localtime( &myTime );
+
+    tm *pointer = setLocaltime();
+
     pointer -> tm_mday = i;
     pointer -> tm_mon --;
-
 
     char *date = asctime( pointer );
     strftime( date, 11, "%Y-%m-%d", pointer );

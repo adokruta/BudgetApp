@@ -1,10 +1,8 @@
 #include "Balance.h"
 
-
 vector <Income> Balance :: loadIncomesFromFile()
 {
     Income income;
-
     CMarkup xml;
 
     bool fileExists = xml.Load( "incomes.xml" );
@@ -51,7 +49,6 @@ vector <Income> Balance :: loadIncomesFromFile()
 vector <Expense> Balance :: loadExpensesFromFile()
 {
     Expense expense;
-
     CMarkup xml;
 
     bool fileExists = xml.Load( "expenses.xml" );
@@ -98,9 +95,7 @@ vector <Expense> Balance :: loadExpensesFromFile()
 void Balance :: showTheCurrentMonthBalance()
 {
     float sumOfIncomes = 0, sumOfExpenses = 0;
-
     int dateOfTheLastDayOfTheCurrentMonthNumerically = DateManager :: changeTheDateToInt(DateManager :: getDateOfTheLastDayOfTheCurrentMonth());
-
     int dateOfTheFirstDayOfTheCurrentMonthNumerically = DateManager :: changeTheDateToInt(DateManager :: getDateOfTheFirstDayOfTheCurrentMonth());
 
     sort( incomes.begin( ), incomes.end( ), [ ](   Income& income1,  Income& income2 )
@@ -151,9 +146,7 @@ void Balance :: showTheCurrentMonthBalance()
 void Balance :: showThePreviousMonthBalance()
 {
     float sumOfIncomes = 0, sumOfExpenses = 0;
-
     int dateOfTheLastDayOfThePreviousMonthNumerically = DateManager :: changeTheDateToInt(DateManager :: getDateOfTheLastDayOfThePreviousMonth());
-
     int dateOfTheFirstDayOfThePreviousMonthNumerically = DateManager :: changeTheDateToInt(DateManager :: getDateOfTheFirstDayOfThePreviousMonth());
 
     sort( incomes.begin( ), incomes.end( ), [ ](   Income& income1,  Income& income2 )
@@ -168,7 +161,6 @@ void Balance :: showThePreviousMonthBalance()
         return DateManager :: changeTheDateToInt(expense1.getDate()) < DateManager :: changeTheDateToInt(expense2.getDate());
     }
         );
-
 
     cout << "Incomes:" << endl;
 
@@ -203,8 +195,10 @@ void Balance :: showThePreviousMonthBalance()
     getch();
 }
 
-    void Balance :: showTheBalanceForTheSelectedPeriod()
+void Balance :: showTheBalanceForTheSelectedPeriod()
 {
+    system ("cls");
+
     float sumOfIncomes = 0, sumOfExpenses = 0;
 
     cout << "Enter the date of the beginning of the balance:  " << endl;
@@ -216,17 +210,17 @@ void Balance :: showThePreviousMonthBalance()
     int endDateNumerically = DateManager :: changeTheDateToInt(DateManager :: getUsersDate());
 
 
-         sort( incomes.begin( ), incomes.end( ), [ ](   Income& income1,  Income& income2 )
+    sort( incomes.begin( ), incomes.end( ), [ ](   Income& income1,  Income& income2 )
     {
         return DateManager :: changeTheDateToInt(income1.getDate()) < DateManager :: changeTheDateToInt(income2.getDate());
     }
-    );
+        );
 
-          sort( expenses.begin( ), expenses.end( ), [ ](   Expense& expense1,  Expense& expense2 )
+    sort( expenses.begin( ), expenses.end( ), [ ](   Expense& expense1,  Expense& expense2 )
     {
         return DateManager :: changeTheDateToInt(expense1.getDate()) < DateManager :: changeTheDateToInt(expense2.getDate());
     }
-    );
+        );
 
     cout << "Incomes: " << endl;
 
@@ -238,7 +232,6 @@ void Balance :: showThePreviousMonthBalance()
             sumOfIncomes += (incomes[i].getAmount());
         }
     }
-
 
     cout << "---------------------------------------------" << endl;
     cout << "Expenses: " << endl;

@@ -1,9 +1,9 @@
 #include "UserManager.h"
-#include <conio.h>
-
 
 void UserManager :: registerUser()
 {
+    system ("cls");
+
     User user = getNewUserData();
 
     users.push_back(user);
@@ -37,7 +37,8 @@ User UserManager :: getNewUserData()
 
         user.setLogin(login);
 
-    } while (loginExist(user.getLogin()) == true);
+    }
+    while (loginExist(user.getLogin()) == true);
 
     string password;
     cout << "Enter password: ";
@@ -57,67 +58,65 @@ int UserManager :: getNewUserId()
 
 bool UserManager :: loginExist(string login)
 {
-   for(int i=0; i < users.size(); i++)
-   {
-       if(users[i].getLogin() == login)
-       {
-           cout << endl << "There is a user with such login! Try another." << endl;
-           return true;
-       }
-   }
+    for(int i=0; i < users.size(); i++)
+    {
+        if(users[i].getLogin() == login)
+        {
+            cout << endl << "There is a user with such login! Try another." << endl;
+            return true;
+        }
+    }
     return false;
 }
 
- void UserManager :: loginUser()
+void UserManager :: loginUser()
 {
- if( !users.empty())
- {
-    string login = "", password = "";
+    if( !users.empty())
+    {
+        string login = "", password = "";
 
-    system("cls");
-    cout << "Enter login: ";
-    login = auxiliaryMethods.loadLine();
+        system("cls");
+        cout << "Enter login: ";
+        login = auxiliaryMethods.loadLine();
 
-   for(int i=0; i < users.size(); i++)
-   {
-        if ( users[i].getLogin() == login)
+        for(int i=0; i < users.size(); i++)
         {
-            for (int numberOfAttempts = 3; numberOfAttempts > 0; numberOfAttempts--)
+            if ( users[i].getLogin() == login)
             {
-                cout << "Enter password. Attempts left: " << numberOfAttempts << ": ";
-                password = auxiliaryMethods.loadLine();
-
-                if (users[i].getPassword() == password)
+                for (int numberOfAttempts = 3; numberOfAttempts > 0; numberOfAttempts--)
                 {
-                    loggedInUserId = users[i].getId();
-                    cout << endl << "You have logged in!" << endl << endl;
-                    system("pause");
-                    return;
+                    cout << "Enter password. Attempts left: " << numberOfAttempts << ": ";
+                    password = auxiliaryMethods.loadLine();
+
+                    if (users[i].getPassword() == password)
+                    {
+                        loggedInUserId = users[i].getId();
+                        cout << endl << "You have logged in!" << endl << endl;
+                        system("pause");
+                        return;
+                    }
                 }
+                cout << "Wrong password was entered three times." << endl;
+                system("pause");
+                return;
             }
-            cout << "Wrong password was entered three times." << endl;
-            system("pause");
-            return;
         }
-
+        cout << "There is no user with such login." << endl;
+        system("pause");
+        return;
     }
-    cout << "There is no user with such login." << endl;
-    system("pause");
-    return;
-
- }
- else
- {
-     cout << "The file with users is empty. Please log in." << endl;
-     system ("pause");
-    return;
- }
+    else
+    {
+        cout << "The file with users is empty. Please log in." << endl;
+        system ("pause");
+        return;
+    }
 }
 
- int UserManager :: getLoggedInUserId()
- {
-     return loggedInUserId;
- }
+int UserManager :: getLoggedInUserId()
+{
+    return loggedInUserId;
+}
 
 void UserManager ::  changePassword()
 {
@@ -170,13 +169,13 @@ bool UserManager ::  isUserLoggedIn()
         return false;
 }
 
- void UserManager :: logoutUser()
- {
-     loggedInUserId = 0;
- }
+void UserManager :: logoutUser()
+{
+    loggedInUserId = 0;
+}
 
- void UserManager :: saveUserToFile(User user)
- {
+void UserManager :: saveUserToFile(User user)
+{
     CMarkup xml;
 
     bool fileExists = xml.Load( "users.xml" );
@@ -197,17 +196,17 @@ bool UserManager ::  isUserLoggedIn()
     xml.AddElem("name", user.getName());
     xml.AddElem("surname", user.getSurname());
     xml.Save("users.xml");
- }
+}
 
- vector <User> UserManager :: loadUsersFromFile()
- {
+vector <User> UserManager :: loadUsersFromFile()
+{
     User user;
 
     CMarkup xml;
 
     bool fileExists = xml.Load( "users.xml" );
 
-     if (!fileExists)
+    if (!fileExists)
     {
         xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
     }
@@ -216,37 +215,24 @@ bool UserManager ::  isUserLoggedIn()
     xml.IntoElem();
     while ( xml.FindElem("User") )
     {
-         xml.IntoElem();
-         xml.FindElem( "userId" );
-         user.setId(atoi( MCD_2PCSZ(xml.GetData())));
+        xml.IntoElem();
+        xml.FindElem( "userId" );
+        user.setId(atoi( MCD_2PCSZ(xml.GetData())));
 
-         xml.FindElem( "login" );
-         user.setLogin(xml.GetData());
+        xml.FindElem( "login" );
+        user.setLogin(xml.GetData());
 
-         xml.FindElem( "password" );
-         user.setPassword(xml.GetData());
+        xml.FindElem( "password" );
+        user.setPassword(xml.GetData());
 
-         xml.FindElem( "name" );
-         user.setName(xml.GetData());
+        xml.FindElem( "name" );
+        user.setName(xml.GetData());
 
-         xml.FindElem( "surname" );
-         user.setSurname(xml.GetData());
-         xml.OutOfElem();
+        xml.FindElem( "surname" );
+        user.setSurname(xml.GetData());
+        xml.OutOfElem();
 
-         users.push_back(user);
+        users.push_back(user);
     }
-
     return users;
- }
-
-void UserManager :: showUsers()
-{
-    for(int i=0; i<users.size(); i++)
-    {
-        cout << users[i].getId() << endl;
-        cout << users[i].getLogin() << endl;
-        cout << users[i].getPassword() << endl;
-        cout << users[i].getName() << endl;
-        cout << users[i].getSurname() << endl << endl;
-    }
 }

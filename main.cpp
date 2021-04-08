@@ -8,11 +8,11 @@ int main()
 {
     BudgetApp budgetApp;
 
-   while (true)
+    while (true)
     {
         if (!budgetApp.isUserLoggedIn())
         {
-           char choice = AuxiliaryMethods :: selectOptionFromMainMenu();
+            char choice = AuxiliaryMethods :: selectOptionFromMainMenu();
 
             switch (choice)
             {
@@ -33,7 +33,7 @@ int main()
         }
         else
         {
-             char choice = AuxiliaryMethods :: selectOptionFromUserMenu();
+            char choice = AuxiliaryMethods :: selectOptionFromUserMenu();
 
             switch (choice)
             {
@@ -61,7 +61,6 @@ int main()
             }
         }
     }
-
 
     return 0;
 }
