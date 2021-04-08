@@ -2,12 +2,7 @@
 #define BUDGETAPP_H
 
 #include <iostream>
-//#include <vector>
-//#include <windows.h>
-//#include <fstream>
-//#include <sstream>
 
-//#include "User.h"
 #include "UserManager.h"
 #include "AuxiliaryMethods.h"
 #include "IncomeManager.h"
@@ -24,8 +19,6 @@ class BudgetApp
     IncomeManager *incomeManager;
     ExpenseManager *expenseManager;
     Balance *balance;
-
-
 
 public:
 BudgetApp()
@@ -46,7 +39,6 @@ void addExpense();
 void showCurrentMonthBalance();
 void showPreviousMonthBalance();
 void showBalanceForTheSelectedPeriod();
-
 
 };
 

@@ -42,6 +42,8 @@
 		<Unit filename="CashFlow.h" />
 		<Unit filename="CashFlowManager.cpp" />
 		<Unit filename="CashFlowManager.h" />
+		<Unit filename="DateManager.cpp" />
+		<Unit filename="DateManager.h" />
 		<Unit filename="Expense.cpp" />
 		<Unit filename="Expense.h" />
 		<Unit filename="ExpenseManager.cpp" />

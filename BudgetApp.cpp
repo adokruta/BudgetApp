@@ -12,7 +12,10 @@ void BudgetApp :: loginUser()
 
 bool BudgetApp :: isUserLoggedIn()
 {
-    userManager.isUserLoggedIn();
+    if(userManager.isUserLoggedIn())
+        return true;
+    else
+        return false;
 }
 
 void BudgetApp :: logoutUser()
