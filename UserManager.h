@@ -3,9 +3,6 @@
 
 #include <iostream>
 #include <vector>
-#include <windows.h>
-#include <fstream>
-#include <sstream>
 
 #include "Markup.h"
 #include "User.h"
@@ -40,8 +37,6 @@ public:
     void logoutUser();
     void changePassword();
     bool isUserLoggedIn();
-    void showUsers();
-
 };
 
 #endif

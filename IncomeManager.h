@@ -2,17 +2,13 @@
 #define INCOMEMANAGER_H
 
 #include <iostream>
-#include <vector>
-#include <windows.h>
-#include <conio.h>
-#include <sstream>
-#include <time.h>
 
 #include "Markup.h"
 #include "User.h"
 #include "AuxiliaryMethods.h"
 #include "CashFlowManager.h"
 #include "Income.h"
+#include "DateManager.h"
 
 
 using namespace std;
@@ -21,9 +17,7 @@ class IncomeManager : public CashFlowManager
 {
     string fileName;
     int lastIncomeId;
-
     int getLastIncomeId(string fileName);
-
 
   public:
 
@@ -35,7 +29,6 @@ class IncomeManager : public CashFlowManager
 
     void saveIncomeToFile(Income income);
     void addIncome();
-
 };
 
 #endif

@@ -11,23 +11,21 @@ class CashFlow
     int cashFlowId;
     char date[11];
     string item;
-    string amount;
-
+    float amount;
 
 public:
+
     void setuserId(int newUserId);
     void setCashFlowId(int newCashFlowId);
     void setDate(char *newDate);
     void setItem(string newItem);
-    void setAmount(string newAmount);
+    void setAmount(float newAmount);
 
     int getuserId();
     int getCashFlowId();
     char* getDate();
     string getItem();
-    string getAmount();
-
-
+    float getAmount();
 };
 
 #endif

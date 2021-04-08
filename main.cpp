@@ -8,11 +8,11 @@ int main()
 {
     BudgetApp budgetApp;
 
-   while (true)
+    while (true)
     {
         if (!budgetApp.isUserLoggedIn())
         {
-           char choice = AuxiliaryMethods :: selectOptionFromMainMenu();
+            char choice = AuxiliaryMethods :: selectOptionFromMainMenu();
 
             switch (choice)
             {
@@ -33,28 +33,23 @@ int main()
         }
         else
         {
-             char choice = AuxiliaryMethods :: selectOptionFromUserMenu();
+            char choice = AuxiliaryMethods :: selectOptionFromUserMenu();
 
             switch (choice)
             {
             case '1':
-                cout << "Add income";
                 budgetApp.addIncome();
                 break;
             case '2':
-                cout << "Add expense";
                 budgetApp.addExpense();
                 break;
             case '3':
-                cout << "Show current month balance:" << endl;
                 budgetApp.showCurrentMonthBalance();
                 break;
             case '4':
-                cout << "Show balance from previous month: " << endl;
                 budgetApp.showPreviousMonthBalance();
                 break;
             case '5':
-                cout << "Show balance from selected period: " << endl;
                 budgetApp.showBalanceForTheSelectedPeriod();
                 break;
             case '6':
@@ -66,7 +61,6 @@ int main()
             }
         }
     }
-
 
     return 0;
 }

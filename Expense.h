@@ -10,7 +10,6 @@ class Expense : public CashFlow
 
 {
 
-
 };
 
 #endif

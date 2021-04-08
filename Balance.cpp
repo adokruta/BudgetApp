@@ -1,10 +1,8 @@
 #include "Balance.h"
 
-
 vector <Income> Balance :: loadIncomesFromFile()
 {
     Income income;
-
     CMarkup xml;
 
     bool fileExists = xml.Load( "incomes.xml" );
@@ -29,7 +27,7 @@ vector <Income> Balance :: loadIncomesFromFile()
 
             xml.FindElem( "date" );
             char *date = new char[11];
-            strcpy( date, xml.GetData().c_str() );
+            strcpy( date, xml.GetData().c_str());
             income.setDate(date);
             delete date;
             date = NULL;
@@ -38,7 +36,7 @@ vector <Income> Balance :: loadIncomesFromFile()
             income.setItem(xml.GetData());
 
             xml.FindElem( "amount" );
-            income.setAmount(xml.GetData());
+            income.setAmount(atof( MCD_2PCSZ(xml.GetData())));
 
             incomes.push_back(income);
         }
@@ -51,7 +49,6 @@ vector <Income> Balance :: loadIncomesFromFile()
 vector <Expense> Balance :: loadExpensesFromFile()
 {
     Expense expense;
-
     CMarkup xml;
 
     bool fileExists = xml.Load( "expenses.xml" );
@@ -85,7 +82,7 @@ vector <Expense> Balance :: loadExpensesFromFile()
             expense.setItem(xml.GetData());
 
             xml.FindElem( "amount" );
-            expense.setAmount(xml.GetData());
+            expense.setAmount(atof( MCD_2PCSZ(xml.GetData())));
 
             expenses.push_back(expense);
         }
@@ -94,257 +91,22 @@ vector <Expense> Balance :: loadExpensesFromFile()
     return expenses;
 }
 
-void Balance :: showIncomes()
-{
-    for(int i=0; i<incomes.size(); i++)
-    {
-        cout << endl << incomes[i].getuserId() << endl;
-        cout << incomes[i].getCashFlowId() << endl;
-        cout << incomes[i].getDate() << endl;
-        cout << incomes[i].getItem() << endl;
-        cout << incomes[i].getAmount() << endl << endl;
-        getch();
-    }
-}
-
-void Balance :: showExpenses()
-{
-    for(int i=0; i<expenses.size(); i++)
-    {
-        cout << endl << expenses[i].getuserId() << endl;
-        cout << expenses[i].getCashFlowId() << endl;
-        cout << expenses[i].getDate() << endl;
-        cout << expenses[i].getItem() << endl;
-        cout << expenses[i].getAmount() << endl << endl;
-        getch();
-    }
-}
-
 
 void Balance :: showTheCurrentMonthBalance()
 {
-    float sumOfIncomes = 0;
-    float sumOfExpenses = 0;
-
-    char* todaySDate = getTodaysDate();
-
-    int todayDate = changeTheDateToInt(todaySDate);
-
-    char* lastDayInMonthDate = getLastDayInMonthDate();
-
-    int lastDayInMonthDate2 = changeTheDateToInt(lastDayInMonthDate);
-
-    char* firstDayInMonthDate = getFirstDayInMonthDate();
-
-    int firstDayInMonthDate2 = changeTheDateToInt(firstDayInMonthDate);
+    float sumOfIncomes = 0, sumOfExpenses = 0;
+    int dateOfTheLastDayOfTheCurrentMonthNumerically = DateManager :: changeTheDateToInt(DateManager :: getDateOfTheLastDayOfTheCurrentMonth());
+    int dateOfTheFirstDayOfTheCurrentMonthNumerically = DateManager :: changeTheDateToInt(DateManager :: getDateOfTheFirstDayOfTheCurrentMonth());
 
     sort( incomes.begin( ), incomes.end( ), [ ](   Income& income1,  Income& income2 )
     {
-        return changeTheDateToInt(income1.getDate()) < changeTheDateToInt(income2.getDate());
+        return DateManager :: changeTheDateToInt(income1.getDate()) < DateManager :: changeTheDateToInt(income2.getDate());
     }
         );
 
-        cout << "Incomes:" << endl;
-
-    for (int i=0; i<incomes.size(); i++)
+    sort( expenses.begin( ), expenses.end( ), [ ](   Expense& expense1,  Expense& expense2 )
     {
-        if(changeTheDateToInt(incomes[i].getDate()) >= firstDayInMonthDate2 && changeTheDateToInt(incomes[i].getDate()) <= lastDayInMonthDate2)
-        {
-            cout << "Date: " << incomes[i].getDate() << "; " << "Item: " << incomes[i].getItem() << "; " << "Amount: " << incomes[i].getAmount() << endl;
-            sumOfIncomes += atof((incomes[i].getAmount()).c_str());
-        }
-    }
-
-     sort( expenses.begin( ), expenses.end( ), [ ](   Expense& expense1,  Expense& expense2 )
-    {
-        return changeTheDateToInt(expense1.getDate()) < changeTheDateToInt(expense2.getDate());
-    }
-        );
-
-        cout << "---------------------------------------------" << endl;
-        cout << "Expenses: " << endl;
-
-    for (int i=0; i<expenses.size(); i++)
-    {
-        if(changeTheDateToInt(expenses[i].getDate()) >= firstDayInMonthDate2 && changeTheDateToInt(expenses[i].getDate()) <= lastDayInMonthDate2)
-        {
-            cout << "Date: " << expenses[i].getDate() << "; " << "Item: " << expenses[i].getItem() << "; " << "Amount: " << expenses[i].getAmount() << endl;
-            sumOfExpenses += atof((expenses[i].getAmount()).c_str());
-        }
-    }
-
-    cout << "---------------------------------------------" << endl;
-    cout << "Sum of incomes: " << sumOfIncomes << endl;
-    cout << "---------------------------------------------" << endl;
-    cout << "Sum of expenses: " << sumOfExpenses << endl;
-    cout << "---------------------------------------------" << endl;
-    cout << "Balance: " << sumOfIncomes - sumOfExpenses << endl;
-
-    getch();
-}
-
-char* Balance :: getTodaysDate()
-{
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
-    pointer = localtime( &myTime );
-    char *date = asctime( pointer );
-    strftime( date, 11, "%Y-%m-%d", pointer );
-
-    return date;
-}
-
-char* Balance :: getLastDayInMonthDate()
-{
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
-    pointer = localtime( &myTime );
-    pointer -> tm_mday = returnLastDayInMonth(pointer->tm_mon+1, pointer->tm_year+1900);
-
-    char *date = asctime( pointer );
-    strftime( date, 11, "%Y-%m-%d", pointer );
-
-    return date;
-}
-
-char* Balance :: getLastDayInPreviousMonthDate()
-{
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
-    pointer = localtime( &myTime );
-    pointer -> tm_mday = returnLastDayInMonth(pointer->tm_mon, pointer->tm_year+1900);
-    pointer -> tm_mon --;
-
-    char *date = asctime( pointer );
-    strftime( date, 11, "%Y-%m-%d", pointer );
-
-    return date;
-}
-
-char* Balance :: getFirstDayInMonthDate()
-{
-    int i = 01;
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
-    pointer = localtime( &myTime );
-    pointer -> tm_mday = i;
-
-    char *date = asctime( pointer );
-    strftime( date, 11, "%Y-%m-%d", pointer );
-
-    return date;
-}
-
-char* Balance :: getFirstDayInPreviousMonthDate()
-{
-    int i = 01;
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
-    pointer = localtime( &myTime );
-    pointer -> tm_mday = i;
-    pointer -> tm_mon --;
-
-    //cout << "Powinien byæ pierwszy dzieñ: " << pointer->tm_mday << endl;
-
-    char *date = asctime( pointer );
-    strftime( date, 11, "%Y-%m-%d", pointer );
-
-    return date;
-}
-
-
-int Balance :: changeTheDateToInt (char* date)
-{
-    string year="0000", month="00", day="00", alldate;
-    int dateByNr;
-
-    for(int i=0; i<4; i++)
-    {
-        year[i] = *(date+i);
-    }
-
-    for(int i=0; i<2; i++)
-    {
-        month[i] = *(date+i+5);
-    }
-
-    for(int i=0; i<2; i++)
-    {
-        day[i] = *(date+i+8);
-    }
-
-    alldate = year + month + day;
-
-    return dateByNr = atoi(alldate.c_str());
-}
-
-int Balance :: returnLastDayInMonth (int month, int year)
-{
-    int lastDayInMonth = 0;
-
-    if ( month == 2 )
-    {
-        if ( isYearLeap(year) )
-        {
-            lastDayInMonth = 29;
-            return lastDayInMonth;
-        }
-        else
-        {
-            lastDayInMonth = 28;
-            return lastDayInMonth;
-        }
-    }
-
-    else if ( month == 4 || month == 6 || month == 9 || month == 11 )
-    {
-        lastDayInMonth = 30;
-        return lastDayInMonth;
-    }
-
-    else if ( month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
-    {
-        lastDayInMonth = 31;
-        return lastDayInMonth;
-    }
-}
-
-bool Balance :: isYearLeap (int year)
-{
-    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
-        return true;
-    else
-        return false;
-}
-
-void Balance :: showThePreviousMonthBalance()
-{
-    float sumOfIncomes = 0;
-    float sumOfExpenses = 0;
-
-    char* todaySDate = getTodaysDate();
-
-    int todayDate = changeTheDateToInt(todaySDate);
-
-    char* lastDayInPreviousMonthDate = getLastDayInPreviousMonthDate();
-
-    int lastDayInPreviousMonthDate2 = changeTheDateToInt(lastDayInPreviousMonthDate);
-
-    char* firstDayInPreviousMonthDate = getFirstDayInPreviousMonthDate();
-
-    int firstDayInPreviousMonthDate2 = changeTheDateToInt(firstDayInPreviousMonthDate);
-
-
-
-    sort( incomes.begin( ), incomes.end( ), [ ](   Income& income1,  Income& income2 )
-    {
-        return changeTheDateToInt(income1.getDate()) < changeTheDateToInt(income2.getDate());
-
+        return DateManager :: changeTheDateToInt(expense1.getDate()) < DateManager :: changeTheDateToInt(expense2.getDate());
     }
         );
 
@@ -352,30 +114,74 @@ void Balance :: showThePreviousMonthBalance()
 
     for (int i=0; i<incomes.size(); i++)
     {
-        if(changeTheDateToInt(incomes[i].getDate()) >= firstDayInPreviousMonthDate2 && changeTheDateToInt(incomes[i].getDate()) <= lastDayInPreviousMonthDate2)
+        if(DateManager :: changeTheDateToInt(incomes[i].getDate()) >= dateOfTheFirstDayOfTheCurrentMonthNumerically && DateManager :: changeTheDateToInt(incomes[i].getDate()) <= dateOfTheLastDayOfTheCurrentMonthNumerically)
         {
             cout << "Date: " << incomes[i].getDate() << "; " << "Item: " << incomes[i].getItem() << "; " << "Amount: " << incomes[i].getAmount() << endl;
-            sumOfIncomes += atof((incomes[i].getAmount()).c_str());
+            sumOfIncomes += (incomes[i].getAmount());
         }
     }
 
+    cout << "---------------------------------------------" << endl;
+    cout << "Expenses: " << endl;
 
+    for (int i=0; i<expenses.size(); i++)
+    {
+        if(DateManager :: changeTheDateToInt(expenses[i].getDate()) >= dateOfTheFirstDayOfTheCurrentMonthNumerically && DateManager :: changeTheDateToInt(expenses[i].getDate()) <= dateOfTheLastDayOfTheCurrentMonthNumerically)
+        {
+            cout << "Date: " << expenses[i].getDate() << "; " << "Item: " << expenses[i].getItem() << "; " << "Amount: " << expenses[i].getAmount() << endl;
+            sumOfExpenses += (expenses[i].getAmount());
+        }
+    }
+
+    cout << "---------------------------------------------" << endl;
+    cout << "Sum of incomes: " << sumOfIncomes << endl;
+    cout << "---------------------------------------------" << endl;
+    cout << "Sum of expenses: " << sumOfExpenses << endl;
+    cout << "---------------------------------------------" << endl;
+    cout << "Balance: " << sumOfIncomes - sumOfExpenses << endl;
+
+    getch();
+}
+
+void Balance :: showThePreviousMonthBalance()
+{
+    float sumOfIncomes = 0, sumOfExpenses = 0;
+    int dateOfTheLastDayOfThePreviousMonthNumerically = DateManager :: changeTheDateToInt(DateManager :: getDateOfTheLastDayOfThePreviousMonth());
+    int dateOfTheFirstDayOfThePreviousMonthNumerically = DateManager :: changeTheDateToInt(DateManager :: getDateOfTheFirstDayOfThePreviousMonth());
+
+    sort( incomes.begin( ), incomes.end( ), [ ](   Income& income1,  Income& income2 )
+    {
+        return DateManager :: changeTheDateToInt(income1.getDate()) < DateManager :: changeTheDateToInt(income2.getDate());
+
+    }
+        );
 
     sort( expenses.begin( ), expenses.end( ), [ ](   Expense& expense1,  Expense& expense2 )
     {
-        return changeTheDateToInt(expense1.getDate()) < changeTheDateToInt(expense2.getDate());
+        return DateManager :: changeTheDateToInt(expense1.getDate()) < DateManager :: changeTheDateToInt(expense2.getDate());
     }
         );
 
-        cout << "---------------------------------------------" << endl;
-        cout << "Expenses: " << endl;
+    cout << "Incomes:" << endl;
+
+    for (int i=0; i<incomes.size(); i++)
+    {
+        if(DateManager :: changeTheDateToInt(incomes[i].getDate()) >= dateOfTheFirstDayOfThePreviousMonthNumerically && DateManager :: changeTheDateToInt(incomes[i].getDate()) <= dateOfTheLastDayOfThePreviousMonthNumerically)
+        {
+            cout << "Date: " << incomes[i].getDate() << "; " << "Item: " << incomes[i].getItem() << "; " << "Amount: " << incomes[i].getAmount() << endl;
+            sumOfIncomes += (incomes[i].getAmount());
+        }
+    }
+
+    cout << "---------------------------------------------" << endl;
+    cout << "Expenses: " << endl;
 
     for (int i=0; i<expenses.size(); i++)
     {
-        if(changeTheDateToInt(expenses[i].getDate()) >= firstDayInPreviousMonthDate2 && changeTheDateToInt(expenses[i].getDate()) <= lastDayInPreviousMonthDate2)
+        if(DateManager :: changeTheDateToInt(expenses[i].getDate()) >= dateOfTheFirstDayOfThePreviousMonthNumerically && DateManager :: changeTheDateToInt(expenses[i].getDate()) <= dateOfTheLastDayOfThePreviousMonthNumerically)
         {
             cout << "Date: " << expenses[i].getDate() << "; " << "Item: " << expenses[i].getItem() << "; " << "Amount: " << expenses[i].getAmount() << endl;
-            sumOfExpenses += atof((expenses[i].getAmount()).c_str());
+            sumOfExpenses +=(expenses[i].getAmount());
         }
     }
 
@@ -389,58 +195,53 @@ void Balance :: showThePreviousMonthBalance()
     getch();
 }
 
-    void Balance :: showTheBalanceForTheSelectedPeriod()
-    {
-        float sumOfIncomes = 0;
-        float sumOfExpenses = 0;
+void Balance :: showTheBalanceForTheSelectedPeriod()
+{
+    system ("cls");
+
+    float sumOfIncomes = 0, sumOfExpenses = 0;
 
     cout << "Enter the date of the beginning of the balance:  " << endl;
-        char* beginDate =  setUsersDate();
 
-        int beginDate2 = changeTheDateToInt(beginDate);
+    int beginDateNumerically = DateManager :: changeTheDateToInt(DateManager :: getUsersDate());
 
     cout << "Enter the date of the end of the balance:  " << endl;
 
-        char* endDate =  setUsersDate();
-
-        int endDate2 = changeTheDateToInt(endDate);
+    int endDateNumerically = DateManager :: changeTheDateToInt(DateManager :: getUsersDate());
 
 
-         sort( incomes.begin( ), incomes.end( ), [ ](   Income& income1,  Income& income2 )
+    sort( incomes.begin( ), incomes.end( ), [ ](   Income& income1,  Income& income2 )
     {
-        return changeTheDateToInt(income1.getDate()) < changeTheDateToInt(income2.getDate());
-
-    }
-    );
-
-        cout << "Incomes: " << endl;
-
-         for (int i=0; i<incomes.size(); i++)
-        {
-            if(changeTheDateToInt(incomes[i].getDate()) >= beginDate2 && changeTheDateToInt(incomes[i].getDate()) <= endDate2)
-            {
-                cout << "Date: " << incomes[i].getDate() << "; " << "Item: " << incomes[i].getItem() << "; " << "Amount: " << incomes[i].getAmount() << endl;
-                sumOfIncomes += atof((incomes[i].getAmount()).c_str());
-            }
-        }
-
-
-
-       sort( expenses.begin( ), expenses.end( ), [ ](   Expense& expense1,  Expense& expense2 )
-    {
-        return changeTheDateToInt(expense1.getDate()) < changeTheDateToInt(expense2.getDate());
+        return DateManager :: changeTheDateToInt(income1.getDate()) < DateManager :: changeTheDateToInt(income2.getDate());
     }
         );
 
-        cout << "---------------------------------------------" << endl;
-        cout << "Expenses: " << endl;
+    sort( expenses.begin( ), expenses.end( ), [ ](   Expense& expense1,  Expense& expense2 )
+    {
+        return DateManager :: changeTheDateToInt(expense1.getDate()) < DateManager :: changeTheDateToInt(expense2.getDate());
+    }
+        );
+
+    cout << "Incomes: " << endl;
+
+    for (int i=0; i<incomes.size(); i++)
+    {
+        if(DateManager :: changeTheDateToInt(incomes[i].getDate()) >= beginDateNumerically && DateManager :: changeTheDateToInt(incomes[i].getDate()) <= endDateNumerically)
+        {
+            cout << "Date: " << incomes[i].getDate() << "; " << "Item: " << incomes[i].getItem() << "; " << "Amount: " << incomes[i].getAmount() << endl;
+            sumOfIncomes += (incomes[i].getAmount());
+        }
+    }
+
+    cout << "---------------------------------------------" << endl;
+    cout << "Expenses: " << endl;
 
     for (int i=0; i<expenses.size(); i++)
     {
-        if(changeTheDateToInt(expenses[i].getDate()) >= beginDate2 && changeTheDateToInt(expenses[i].getDate()) <= endDate2)
+        if(DateManager :: changeTheDateToInt(expenses[i].getDate()) >= beginDateNumerically && DateManager :: changeTheDateToInt(expenses[i].getDate()) <= endDateNumerically)
         {
             cout << "Date: " << expenses[i].getDate() << "; " << "Item: " << expenses[i].getItem() << "; " << "Amount: " << expenses[i].getAmount() << endl;
-            sumOfExpenses += atof((expenses[i].getAmount()).c_str());
+            sumOfExpenses += (expenses[i].getAmount());
         }
     }
 
@@ -452,118 +253,5 @@ void Balance :: showThePreviousMonthBalance()
     cout << "Balance: " << sumOfIncomes - sumOfExpenses << endl;
 
     getch();
-    }
-
-    char* Balance :: setUsersDate()
-{
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
-
-    int year, month, day;
-
-    do
-    {
-
-        cout << "Enter the year: ";
-        cin >> year;
-
-        cout << "Enter the month: ";
-        cin >> month;
-
-        cout << "Enter the day: ";
-        cin >> day;
-
-        cout << endl;
-    }
-    while(!isTheDateCorrect(year, month, day));
-
-    if(isTheDateCorrect(year, month, day))
-    {
-        cout << "The date is correct." << endl;
-        getch();
-
-        pointer = localtime(& myTime);
-        pointer->tm_year = year - 1900;
-        pointer->tm_mon = month - 1;
-        pointer ->tm_mday = day;
-
-        char *myDate = asctime( pointer );
-
-        strftime( myDate,11, "%Y-%m-%d", pointer );
-
-        cin.sync();
-
-        return myDate;
-    }
-
 }
 
-bool Balance :: isTheDateCorrect(int year, int month, int day)
-{
-    time_t myTime;
-    struct tm *pointer;
-    time( &myTime );
-    pointer = localtime( &myTime );
-
-    if(year < 2000 || year > pointer->tm_year + 1900)
-    {
-        cout << "The date should be between 2000-01-01 and the last day of the current month. Try again." << endl;
-        getch();
-        return false;
-    }
-
-    if(month < 1 || month > 12)
-      {
-          cout << "Invalid month number. Enter a number from 1 to 12. " << endl;
-          getch();
-          return false;
-      }
-
-    if(!isNumberOfDaysInMonthCorrect(day, month, year))
-    {
-          cout << "Invalid day of the month. Check if the month has so many days." << endl;
-          getch();
-          return false;
-    }
-
-    else
-        return true;
-}
-
-bool Balance :: isNumberOfDaysInMonthCorrect (int numberOfDays, int month, int year)
-{
-    if ( month == 2 )
-        {
-            if ( isYearLeap(year) )
-                {
-                    if (numberOfDays > 0 && numberOfDays < 30)
-                        return true;
-                    else
-                        return false;
-                }
-            else
-                {
-                    if (numberOfDays > 0 && numberOfDays < 29)
-                        return true;
-                    else
-                        return false;
-                }
-        }
-
-    else if ( month == 4 || month == 6 || month == 9 || month == 11 )
-        {
-            if (numberOfDays > 0 && numberOfDays < 31)
-                return true;
-            else
-                return false;
-        }
-
-     else if ( month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
-        {
-            if (numberOfDays > 0 && numberOfDays < 32)
-                return true;
-            else
-                return false;
-        }
-}
